@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import Transactions from '../api/transactions.js';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -7,8 +7,10 @@ import AddTransactionForm from './AddTransactionForm.jsx';
 import Balance from './Balance.jsx';
 import { withTracker } from 'meteor/react-meteor-data';
 
+import { AppBar, Typography, Toolbar } from '@material-ui/core';
 
-class App extends React.Component {
+
+class App extends Component {
 	constructor(props) {
 		super(props);
 
@@ -19,12 +21,16 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<header>
-					<h1>Uaiso</h1>
-				</header>
+			<Fragment>
+				<AppBar position='static'>
+					<Toolbar>
+						<AccountsUIWrapper />
+						<Typography>
+							Uaiso
+						</Typography>
+					</Toolbar>
+				</AppBar>
 
-				<AccountsUIWrapper />
 
 				{ this.props.currentUser ?
 					<AddTransactionForm userId={Meteor.userId()} />
@@ -34,7 +40,7 @@ class App extends React.Component {
 					<TransactionList transactions={this.props.transactions} />
 				: '' }
 
-			</div>
+			</Fragment>
 		);
 	}
 }

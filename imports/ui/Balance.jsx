@@ -5,15 +5,10 @@ export default class Balance extends React.Component {
 		let sum = 0;
 
 		this.props.transactions.forEach((t) => {
-			if (t.type === 'out') {
-				sum -= t.value;
-			} else {
-				sum += t.value;
-			}
+			sum += t.value;
 		});
 
-		console.log(sum);
-		return sum;
+		return sum.toFixed(2);
 	}
 
 	render() {

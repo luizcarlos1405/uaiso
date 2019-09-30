@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Button, TextField, Grid } from '@material-ui/core'
+
 
 export default class AddTransactionForm extends React.Component {
 	constructor(props) {
@@ -8,6 +10,7 @@ export default class AddTransactionForm extends React.Component {
 
 		this.state = {
 			transactionType: 'in',
+			transactionValue: 0.0,
 		};
 	}
 
@@ -25,40 +28,51 @@ export default class AddTransactionForm extends React.Component {
 		});
 	}
 
+	transactionValueChanged(event) {
+		this.setState({
+			transactionValue: event.target.value
+		});
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 
-		const value = ReactDOM.findDOMNode(this.refs.formValue).value;
-		const type = ReactDOM.findDOMNode(this.refs.formType).value;
+		const value = this.state.transactionValue;
 		const owner = this.props.userId
 
-		Meteor.call('transaction.insert', Number(value), type, owner);
+		Meteor.call('transaction.insert', Number(value), owner);
 	}
 
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit.bind(this)}>
-				<input
-				className={this.state.transactionType === 'in' ? 'btn btn-success' : 'btn btn-danger'}
-				onClick={this.toggleType.bind(this)}
-				type='button'
-				value={this.state.transactionType}
-				ref='formType'
-				/>
+				<Grid
+							container
+							direction="row"
+							justify="center"
+							spacing={2}
+							alignItems="center"
+						>
+					<Grid item>
+						<TextField
+							label="Transaction value"
+							step={0.01}
+							onChange={this.transactionValueChanged.bind(this)}
+							value={this.state.transactionValue}
+							margin="normal"
+							type="number"
+							ref="transactionValue"
+						/>
 
-				<input
-				required
-				type='number'
-				step='0.01'
-				min='0.00'
-				ref='formValue'
-				/>
+					</Grid>
 
-				<input
-				type='submit'
-				className='btn btn-primary submission-button'
-				value='Add'
-				/>
+					<Grid item>
+						<Button variant="outlined" onClick={this.handleSubmit.bind(this)}>
+							Add
+						</Button>
+					</Grid>
+
+				</Grid>
 			</form>
 		);
 	}

@@ -13,14 +13,12 @@ if (Meteor.isServer) {
 
 
 Meteor.methods({
-	'transaction.insert'(value, type, owner){
+	'transaction.insert'(value, owner){
 		check(value, Number);
-		check(type, String);
 		check(owner, String);
 
 		Transactions.insert({
 			value,
-			type,
 			owner,
 			createdAt: new Date(),
 		});

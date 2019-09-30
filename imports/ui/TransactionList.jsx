@@ -3,6 +3,8 @@ import Transaction from './Transaction.jsx';
 import Balance from './Balance.jsx';
 import { Meteor } from 'meteor/meteor';
 
+import { Grid, List, ListItem, ListItemText, Divider } from '@material-ui/core';
+
 
 export default class TransactionList extends React.Component {
 	renderTransactions() {
@@ -16,12 +18,15 @@ export default class TransactionList extends React.Component {
 
 	render() {
 		return (
-			<ul className="list-group">
-				<li className='list-group-item list-group-item-primary'>
-					<strong>Balance:</strong> R$<Balance transactions={this.props.transactions}/>
-				</li>
+			<List className="list-group">
+				<ListItem>
+					<ListItemText>
+						<strong>Balance:</strong> R$ <Balance transactions={this.props.transactions} />
+					</ListItemText>
+				</ListItem>
+				<Divider />
 				{this.renderTransactions()}
-			</ul>
+			</List>
 		);
 	}
 }

@@ -1,7 +1,22 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-export default class Transaction extends React.Component {
+import { withStyles } from '@material-ui/styles';
+import { ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
+
+
+const styles = {
+	income: {
+		margin: 8,
+		backgroundColor: "#a5d6a7"
+	},
+	outcome: {
+		margin: 8,
+		backgroundColor: "#ef9a9a"
+	}
+}
+
+class Transaction extends React.Component {
 	deleteThisTransaction() {
 		const id = this.props.transaction._id
 
@@ -9,20 +24,25 @@ export default class Transaction extends React.Component {
 	}
 
 	render() {
+		const { classes } = this.props;
 		const t = this.props.transaction;
-		let cn = "list-group-item list-group-item-"
+		const style = t.value < 0 ? classes.outcome : classes.income
+
 
 		return (
-			<li className={cn + (t.type === 'out' ? 'danger' : "success")}>
-				<span className='value'>
-					U$ {t.type === 'out' ? '-' : ''}	{t.value.toFixed(2)}
-				</span>
+			<ListItem className={style}>
+				<ListItemText className='value'>
+					U$ {t.value.toFixed(2)}
+				</ListItemText>
 
-				<button className='badge badge-light delete-transaction'
-						onClick={this.deleteThisTransaction.bind(this)}>
-					&times;
-				</button>
-			</li>
+				<ListItemIcon edge="end">
+					<Button	onClick={this.deleteThisTransaction.bind(this)}>
+						&times;
+					</Button>
+				</ListItemIcon>
+			</ListItem>
 		);
 	}
 }
+
+export default withStyles(styles)(Transaction);
