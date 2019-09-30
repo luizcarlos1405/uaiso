@@ -10,14 +10,15 @@ export default class Transaction extends React.Component {
 
 	render() {
 		const t = this.props.transaction;
+		let cn = "list-group-item list-group-item-"
 
 		return (
-			<li className={t.type}>
+			<li className={cn + (t.type === 'out' ? 'danger' : "success")}>
 				<span className='value'>
 					U$ {t.type === 'out' ? '-' : ''}	{t.value.toFixed(2)}
 				</span>
 
-				<button className='delete-transaction'
+				<button className='badge badge-light delete-transaction'
 						onClick={this.deleteThisTransaction.bind(this)}>
 					&times;
 				</button>

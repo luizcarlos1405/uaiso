@@ -15,7 +15,7 @@ class TransactionList extends React.Component {
 
 	render() {
 		return (
-			<ul>
+			<ul className="list-group">
 				{this.renderTransactions()}
 			</ul>
 		);

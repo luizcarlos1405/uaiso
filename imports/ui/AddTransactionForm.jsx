@@ -37,8 +37,9 @@ export default class AddTransactionForm extends React.Component {
 
 	render() {
 		return (
-			<form className='new-transaction-form' onSubmit={this.handleSubmit.bind(this)}>
+			<form onSubmit={this.handleSubmit.bind(this)}>
 				<input
+					className={this.state.transactionType === 'in' ? 'btn btn-success' : 'btn btn-danger'}
 					onClick={this.toggleType.bind(this)}
 					type='button'
 					value={this.state.transactionType}
@@ -55,7 +56,7 @@ export default class AddTransactionForm extends React.Component {
 
 				<input
 					type='submit'
-					className='submission-button'
+					className='btn btn-primary submission-button'
 					value='Add'
 				/>
 			</form>
