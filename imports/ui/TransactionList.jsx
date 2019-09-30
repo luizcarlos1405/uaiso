@@ -21,7 +21,7 @@ export default class TransactionList extends React.Component {
 			<List className="list-group">
 				<ListItem>
 					<ListItemText>
-						<strong>Balance:</strong> R$ <Balance transactions={this.props.transactions} />
+						<strong>Balance:</strong> U$ <Balance transactions={this.props.transactions} />
 					</ListItemText>
 				</ListItem>
 				<Divider />
