@@ -1,5 +1,6 @@
 import React from 'react';
 import Transaction from './Transaction.jsx';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 
@@ -7,7 +8,7 @@ class TransactionList extends React.Component {
 	renderTransactions() {
 		return this.props.transactions.map((transaction) => (
 			<Transaction
-				key={transaction._id}
+			key={transaction._id}
 				transaction={transaction}
 			 />
 		));
@@ -23,7 +24,9 @@ class TransactionList extends React.Component {
 }
 
 export default withTracker(() => {
+	Meteor.subscribe('transactions');
+
 	return {
-		transactions: Transactions.find({}, { sort: { createdAt: -1} }).fetch(),
+		transactions: Transactions.find({ owner: Meteor.userId() }, { sort: { createdAt: -1} }).fetch(),
 	};
 })(TransactionList);
