@@ -41,6 +41,10 @@ export default class AddTransactionForm extends React.Component {
 		const owner = this.props.userId
 
 		Meteor.call('transaction.insert', Number(value), owner);
+
+		this.setState({
+			transactionValue: 0.00,
+		});
 	}
 
 	render() {
@@ -56,7 +60,7 @@ export default class AddTransactionForm extends React.Component {
 					<Grid item>
 						<TextField
 							label="Transaction value"
-							step={0.01}
+							step="0.01"
 							onChange={this.transactionValueChanged.bind(this)}
 							value={this.state.transactionValue}
 							margin="normal"
