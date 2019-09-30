@@ -11,6 +11,13 @@ body {
 	background-color: #ea5757;
 }
 
+.delete-transaction {
+	float: right;
+	background: none;
+	border: none;
+	margin: 0px;
+}
+
 li {
 	margin: 10px;
 	padding: 4px;
