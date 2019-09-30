@@ -2,3 +2,17 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.in {
+	background-color: #5fcc66;
+}
+
+.out {
+	background-color: #ea5757;
+}
+
+li {
+	margin: 10px;
+	padding: 4px;
+	list-style: none;
+}
