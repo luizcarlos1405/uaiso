@@ -1,10 +1,10 @@
 import React from 'react';
 import Transaction from './Transaction.jsx';
+import Balance from './Balance.jsx';
 import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 
 
-class TransactionList extends React.Component {
+export default class TransactionList extends React.Component {
 	renderTransactions() {
 		return this.props.transactions.map((transaction) => (
 			<Transaction
@@ -17,16 +17,11 @@ class TransactionList extends React.Component {
 	render() {
 		return (
 			<ul className="list-group">
+				<li className='list-group-item list-group-item-primary'>
+					<strong>Balance:</strong> R$<Balance transactions={this.props.transactions}/>
+				</li>
 				{this.renderTransactions()}
 			</ul>
 		);
 	}
 }
-
-export default withTracker(() => {
-	Meteor.subscribe('transactions');
-
-	return {
-		transactions: Transactions.find({ owner: Meteor.userId() }, { sort: { createdAt: -1} }).fetch(),
-	};
-})(TransactionList);
